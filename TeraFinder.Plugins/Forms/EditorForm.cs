@@ -605,7 +605,7 @@ public partial class EditorForm : Form
         private readonly string Progress;
 
         public ShinifyForm(int computedValue, string progress)
-        {
+        { 
             MaximizeBox = false;
             MinimizeBox = false;
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -657,22 +657,20 @@ public partial class EditorForm : Form
                     teraRaidDetail.IsClaimedLeaguePoints = false;
                 }
             }
-            MessageBox.Show(Strings["RandomShinyRaid"]);
-            SystemSounds.Asterisk.Play();
-        }
-        if (Loaded)
-        {
-            if (!txtSeed.Text.Equals(""))
+            if (Loaded)
             {
-                var raid = SAV.Raid.GetRaid(cmbDens.SelectedIndex);
-                try
+                if (!txtSeed.Text.Equals(""))
                 {
-                    var seed = Convert.ToUInt32(txtSeed.Text, 16);
-                    raid.Seed = seed;
+                    var raid = SAV.Raid.GetRaid(cmbDens.SelectedIndex);
+                    try
+                    {
+                        var seed = Convert.ToUInt32(txtSeed.Text, 16);
+                        raid.Seed = seed;
+                    }
+                    catch { }
+                    Task.Run(UpdateRemote).Wait();
+                    UpdatePKMInfo(raid);
                 }
-                catch { }
-                Task.Run(UpdateRemote).Wait();
-                UpdatePKMInfo(raid);
             }
         }
     }
