@@ -1,4 +1,5 @@
-﻿using System.Media;
+﻿using System;
+using System.Media;
 using System.Text.Json;
 using PKHeX.Core;
 using TeraFinder.Core;
@@ -30,6 +31,8 @@ public partial class EditorForm : Form
 
     public EncounterRaid9? CurrEncount = null;
     public TeraDetails? CurrTera = null;
+
+    private static Random random = new Random();
 
     public EditorForm(SAV9SV sav,
         IPKMView? editor,
@@ -621,6 +624,56 @@ public partial class EditorForm : Form
         {
             lblValue.Text = $"{Progress} {computed}%";
             lblValue.Location = new Point((Width - lblValue.Width) / 2, lblValue.Location.Y);
+        }
+    }
+
+    private static int Raidshiny(uint Seed)
+    {
+        Xoroshiro128Plus xoroshiro128Plus = new Xoroshiro128Plus(Seed);
+        uint num = (uint)xoroshiro128Plus.NextInt(4294967295uL);
+        uint num2 = (uint)xoroshiro128Plus.NextInt(4294967295uL);
+        uint num3 = (uint)xoroshiro128Plus.NextInt(4294967295uL);
+        return (((num3 >> 16) ^ (num3 & 0xFFFF)) >> 4 == ((num2 >> 16) ^ (num2 & 0xFFFF)) >> 4) ? 1 : 0;
+    }
+
+    private void oneChickToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        if (SAV is SAV9SV sv)
+        {
+            TeraRaidDetail[] allRaids = sv.Raid.GetAllRaids();
+
+            foreach (TeraRaidDetail teraRaidDetail in allRaids)
+            {
+                if (teraRaidDetail.AreaID != 0 && (teraRaidDetail.Content == TeraRaidContentType.Base05 || teraRaidDetail.Content == TeraRaidContentType.Black6))
+                {
+                    teraRaidDetail.IsEnabled = true;
+                    uint seed;
+                    do
+                    {
+                        seed = (uint)random.Next();
+                    }
+                    while (Raidshiny(seed) == 0);
+                    teraRaidDetail.Seed = seed;
+                    teraRaidDetail.IsClaimedLeaguePoints = false;
+                }
+            }
+            MessageBox.Show(Strings["RandomShinyRaid"]);
+            SystemSounds.Asterisk.Play();
+        }
+        if (Loaded)
+        {
+            if (!txtSeed.Text.Equals(""))
+            {
+                var raid = SAV.Raid.GetRaid(cmbDens.SelectedIndex);
+                try
+                {
+                    var seed = Convert.ToUInt32(txtSeed.Text, 16);
+                    raid.Seed = seed;
+                }
+                catch { }
+                Task.Run(UpdateRemote).Wait();
+                UpdatePKMInfo(raid);
+            }
         }
     }
 }
