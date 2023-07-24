@@ -94,11 +94,11 @@ partial class EditorForm
         cmbDens.Location = new Point(50, 34);
         cmbDens.Margin = new Padding(3, 4, 3, 4);
         cmbDens.Name = "cmbDens";
-        cmbDens.Size = new Size(316, 28);
+        cmbDens.Size = new Size(267, 25);
         cmbDens.TabIndex = 1;
         cmbDens.SelectedIndexChanged += cmbDens_IndexChanged;
         cmbDens.KeyPress += cmbDens_KeyPress;
-        // 
+
         // GrpRaidInfo
         // 
         GrpRaidInfo.Controls.Add(lblContent);
@@ -153,7 +153,6 @@ partial class EditorForm
         txtSeed.Name = "txtSeed";
         txtSeed.Size = new Size(115, 23);
         txtSeed.TabIndex = 3;
-        txtSeed.TextChanged += txtSeed_TextChanged;
         txtSeed.KeyPress += txtSeed_KeyPress;
         // 
         // lblSeed
@@ -372,9 +371,9 @@ partial class EditorForm
         // txtSpA
         // 
         this.txtSpA.Enabled = false;
-        this.txtSpA.Location = new System.Drawing.Point(57, 106);
+        this.txtSpA.Location = new Point(57, 106);
         this.txtSpA.Name = "txtSpA";
-        this.txtSpA.Size = new System.Drawing.Size(28, 23);
+        this.txtSpA.Size = new Size(28, 23);
         this.txtSpA.TabIndex = 3;
         // 
         // lblTera
@@ -547,7 +546,7 @@ partial class EditorForm
         // 
         // grpMap
         // 
-        grpMap.Controls.Add(this.imgMap);
+        grpMap.Controls.Add(imgMap);
         grpMap.Location = new Point(360, 27);
         grpMap.Margin = new Padding(3, 4, 3, 4);
         grpMap.Name = "grpMap";
@@ -560,7 +559,7 @@ partial class EditorForm
         // 
         menuStrip1.BackColor = SystemColors.ButtonFace;
         menuStrip1.ImageScalingSize = new Size(20, 20);
-        menuStrip1.Items.AddRange(new ToolStripItem[] { toolsToolStripMenuItem });
+        menuStrip1.Items.AddRange(new ToolStripItem[] {toolsToolStripMenuItem});
         menuStrip1.Location = new Point(0, 0);
         menuStrip1.Name = "menuStrip1";
         menuStrip1.Padding = new Padding(7, 2, 0, 2);
@@ -570,7 +569,7 @@ partial class EditorForm
         // 
         // toolsToolStripMenuItem
         // 
-        toolsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { btnShinifyAll, btnShinifyAllEncounters, oneChickToolStripMenuItem });
+        toolsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] {btnShinifyAll,btnShinifyAllEncounters,oneChickToolStripMenuItem});
         toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
         toolsToolStripMenuItem.Size = new Size(52, 21);
         toolsToolStripMenuItem.Text = "Tools";
@@ -591,7 +590,7 @@ partial class EditorForm
         // 
         // oneChickToolStripMenuItem
         // 
-        oneChickToolStripMenuItem.Name = "One click random shiny";
+        oneChickToolStripMenuItem.Name = "oneChickToolStripMenuItem";
         oneChickToolStripMenuItem.Size = new Size(296, 22);
         oneChickToolStripMenuItem.Text = "异色所有太晶洞窟(可持续变更异色)";
         oneChickToolStripMenuItem.Click += oneChickToolStripMenuItem_Click;
@@ -611,7 +610,7 @@ partial class EditorForm
         Controls.Add(GrpRaidInfo);
         Controls.Add(menuStrip1);
         Icon = (Icon)resources.GetObject("$this.Icon");
-        MainMenuStrip = menuStrip1;
+        MainMenuStrip = this.menuStrip1;
         Margin = new Padding(3, 4, 3, 4);
         MaximizeBox = false;
         MinimizeBox = false;
