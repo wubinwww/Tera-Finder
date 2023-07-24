@@ -605,7 +605,7 @@ public partial class EditorForm : Form
         private readonly string Progress;
 
         public ShinifyForm(int computedValue, string progress)
-        { 
+        {
             MaximizeBox = false;
             MinimizeBox = false;
             FormBorderStyle = FormBorderStyle.FixedDialog;
