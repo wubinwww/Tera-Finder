@@ -153,6 +153,7 @@ partial class EditorForm
         txtSeed.Name = "txtSeed";
         txtSeed.Size = new Size(115, 23);
         txtSeed.TabIndex = 3;
+        txtSeed.TextChanged += txtSeed_TextChanged;
         txtSeed.KeyPress += txtSeed_KeyPress;
         // 
         // lblSeed
